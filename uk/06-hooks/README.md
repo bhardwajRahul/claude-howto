@@ -223,7 +223,7 @@ Claude Code підтримує **33 події хуків**:
 | **ElicitationResult** | Відповідь користувача на elicitation | (немає) | Так | Обробка відповіді |
 | **SessionEnd** | Завершення сесії | (немає) | Ні | Очищення, фінальне логування |
 
-> **`TaskCreated` і `TaskCompleted` потребують увімкнених todo-інструментів (v2.1.233).** Ці події виникають від todo / task-tracking інструментів (`TaskCreate`/`Get`/`Update`/`List`, `TodoWrite`), які **більше не доступні на Opus 4.8, Sonnet 5, Fable 5, Mythos 5 та новіших моделях**. На цих моделях хук лишається валідною конфігурацією, але просто ніколи не спрацьовує — без виводу і без помилки. Встановіть `CLAUDE_CODE_ENABLE_TODO_TOOLS=1`, щоб повернути їх.
+> **`TaskCreated` і `TaskCompleted` потребують увімкнених todo-інструментів (v2.1.233).** Ці події виникають від todo / task-tracking інструментів (`TaskCreate`/`Get`/`Update`/`List`, `TodoWrite`), які **доступні за замовчуванням лише на моделях Claude 3.x, Opus 4 — 4.7, Sonnet 4 — 4.6 та Haiku 4.5**. На інших моделях хук лишається валідною конфігурацією, але просто ніколи не спрацьовує — без виводу і без помилки. Встановіть `CLAUDE_CODE_ENABLE_TODO_TOOLS=1`, щоб повернути їх.
 
 ### PreToolUse
 
@@ -954,7 +954,7 @@ if __name__ == "__main__":
 
 ### Приклад 7: Початкове налаштування дозволів Auto-Mode (одноразовий скрипт)
 
-Одноразовий скрипт налаштування, що додає до `~/.claude/settings.json` ~67 безпечних правил дозволів, еквівалентних базовому набору auto-mode Claude Code — без жодного хука, без запамʼятовування майбутніх виборів. Запустіть один раз; безпечно для повторного запуску (пропускає правила, що вже присутні).
+Одноразовий скрипт налаштування, що додає до `~/.claude/settings.json` безпечні правила дозволів, еквівалентні базовому набору auto-mode Claude Code — 37 типово, до 63 з усіма прапорцями категорій — без жодного хука, без запамʼятовування майбутніх виборів. Запустіть один раз; безпечно для повторного запуску (пропускає правила, що вже присутні).
 
 **Файл:** `09-advanced-features/setup-auto-mode-permissions.py`
 
@@ -970,12 +970,13 @@ python3 09-advanced-features/setup-auto-mode-permissions.py
 
 | Категорія | Приклади |
 |-----------|---------|
-| Вбудовані інструменти | `Read(*)`, `Edit(*)`, `Write(*)`, `Glob(*)`, `Grep(*)`, `Agent(*)`, `WebSearch(*)` |
+| Вбудовані інструменти | `Read(*)`, `Grep(*)`, `Agent(*)`, `WebSearch(*)` |
+| Опціональне редагування (--include-edits) | `Edit(*)` |
 | Git читання | `Bash(git status:*)`, `Bash(git log:*)`, `Bash(git diff:*)` |
 | Git запис (локально) | `Bash(git add:*)`, `Bash(git commit:*)`, `Bash(git checkout:*)` |
-| Пакетні менеджери | `Bash(npm install:*)`, `Bash(pip install:*)`, `Bash(cargo build:*)` |
+| Пакетні менеджери | `Bash(npm ci:*)`, `Bash(npm install:*)`, `Bash(pip install:*)`, `Bash(pip3 install:*)` |
 | Збірка та тестування | `Bash(make:*)`, `Bash(pytest:*)`, `Bash(go test:*)` |
-| Загальні shell-команди | `Bash(ls:*)`, `Bash(cat:*)`, `Bash(find:*)`, `Bash(cp:*)`, `Bash(mv:*)` |
+| Загальні shell-команди | `Bash(ls:*)`, `Bash(cat:*)`, `Bash(find:*)` |
 | GitHub CLI | `Bash(gh pr view:*)`, `Bash(gh pr create:*)`, `Bash(gh issue list:*)` |
 
 **Що навмисно виключено** (цей скрипт ніколи не додає):
@@ -1217,8 +1218,10 @@ chmod +x ~/.claude/hooks/*.sh
 - **[Посібник з памʼяті](../02-memory/)** — конфігурація постійного контексту
 
 ---
-**Останнє оновлення**: 2 вересня 2026
-**Версія Claude Code**: 2.1.257
+**Останнє оновлення**: 19 вересня 2026
+**Версія Claude Code**: 2.1.278
 **Джерела**:
 - https://code.claude.com/docs/en/hooks
+- https://code.claude.com/docs/en/permissions
+- https://code.claude.com/docs/en/tools-reference#task-tool-availability
 **Сумісні моделі**: Claude Fable 5, Claude Opus 5, Claude Sonnet 5, Claude Sonnet 4.6, Claude Opus 4.8, Claude Haiku 4.5

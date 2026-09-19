@@ -349,7 +349,7 @@ Auto Mode is a permission mode that uses a background safety classifier to revie
 
 - **Plan**: Team plan (Enterprise and API rolling out)
 - **Model**: Claude Sonnet 4.6 or Opus 4.6
-- **Classifier**: Runs on Claude Sonnet 4.6 (adds extra token cost)
+- **Classifier**: Tốn thêm chi phí token, ngoại trừ trên gói Enterprise và tài khoản Claude API, nơi v2.1.278+ chạy kiểm tra phía máy chủ mà không tính phí
 
 ### Enabling Auto Mode
 
@@ -445,15 +445,14 @@ The script adds rules across these categories:
 
 | Category | Examples |
 |----------|---------|
-| Core read-only tools | `Read(*)`, `Glob(*)`, `Grep(*)`, `Agent(*)`, `WebSearch(*)`, `WebFetch(*)` |
+| Core read-only tools | `Read(*)`, `Grep(*)`, `Agent(*)`, `WebSearch(*)`, `WebFetch(*)` |
 | Local inspection | `Bash(git status:*)`, `Bash(git log:*)`, `Bash(git diff:*)`, `Bash(cat:*)` |
-| Optional edits | `Edit(*)`, `Write(*)`, `NotebookEdit(*)` |
+| Optional edits | `Edit(*)` |
 | Optional test/build | `Bash(pytest:*)`, `Bash(python3 -m pytest:*)`, `Bash(cargo test:*)` |
-| Optional git writes | `Bash(git add:*)`, `Bash(git commit:*)`, `Bash(git stash:*)` |
-| Git (local write) | `Bash(git add:*)`, `Bash(git commit:*)`, `Bash(git checkout:*)` |
-| Package managers | `Bash(npm install:*)`, `Bash(pip install:*)`, `Bash(cargo build:*)` |
+| Optional git writes | `Bash(git add:*)`, `Bash(git commit:*)`, `Bash(git checkout:*)`, `Bash(git switch:*)`, `Bash(git stash:*)`, `Bash(git tag:*)` |
+| Package managers | `Bash(npm ci:*)`, `Bash(npm install:*)`, `Bash(pip install:*)`, `Bash(pip3 install:*)` |
 | Build & test | `Bash(make:*)`, `Bash(pytest:*)`, `Bash(go test:*)` |
-| Common shell | `Bash(ls:*)`, `Bash(cat:*)`, `Bash(find:*)`, `Bash(cp:*)`, `Bash(mv:*)` |
+| Common shell | `Bash(ls:*)`, `Bash(cat:*)`, `Bash(find:*)` |
 | GitHub CLI | `Bash(gh pr view:*)`, `Bash(gh pr create:*)`, `Bash(gh issue list:*)` |
 
 Dangerous operations (`rm -rf`, `sudo`, force push, `DROP TABLE`, `terraform destroy`, etc.) are intentionally excluded. The script is idempotent — running it twice won't duplicate rules.
@@ -1870,6 +1869,9 @@ For more information about Claude Code and related features:
 
 ---
 
-**Cập Nhật Lần Cuối**: Ngày 25 tháng 8 năm 2026
-**Phiên Bản Claude Code**: 2.1.245
+**Cập Nhật Lần Cuối**: Ngày 19 tháng 9 năm 2026
+**Phiên Bản Claude Code**: 2.1.278
+**Nguồn**:
+- https://code.claude.com/docs/en/permissions
+- https://code.claude.com/docs/en/auto-mode-classifier-billing
 **Các Mô Hình Tương Thích**: Claude Sonnet 4.6, Claude Opus 4.6, Claude Haiku 4.5
