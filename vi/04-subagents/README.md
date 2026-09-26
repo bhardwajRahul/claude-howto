@@ -47,7 +47,7 @@ Tác nhân con cho phép thực thi tác vụ được ủy quyền trong Claude
 
 Mỗi tác nhân con hoạt động độc lập với một trang sạch, chỉ nhận bối cảnh cụ thể cần thiết cho tác vụ của họ, sau đó trả về kết quả cho tác nhân chính để tổng hợp.
 
-**Bắt Đầu Nhanh**: Sử dụng lệnh `/agents` để tạo, xem, chỉnh sửa, và quản lý các tác nhân con của bạn một cách tương tác.
+**Bắt Đầu Nhanh**: Hãy yêu cầu Claude tạo tác nhân con cho bạn ("tạo một tác nhân con để review bảo mật"), hoặc thêm trực tiếp một file `.claude/agents/<name>.md` — xem [Quản Lý Tác Nhân Con](#quản-lý-tác-nhân-con) bên dưới.
 
 ---
 
@@ -286,16 +286,13 @@ Claude Code bao gồm một số tác nhân con được tích hợp sẵn luôn
 
 ### Sử Dụng Lệnh `/agents` (Khuyến Nghị)
 
-```bash
-/agents
+> **Lưu ý**: Trình hướng dẫn tương tác `/agents` đã bị gỡ bỏ trong v2.1.198, và kể từ v2.1.281, `/agents` không còn xuất hiện trong menu `/` hoặc `/help`. Hãy yêu cầu Claude tạo hoặc quản lý tác nhân con (ví dụ: "tạo một tác nhân con để review bảo mật"), hoặc thêm trực tiếp một file `.claude/agents/<name>.md`.
+
+```text
+Tạo một tác nhân con để review code tìm lỗ hổng bảo mật.
 ```
 
-Điều này cung cấp menu tương tác để:
-- Xem tất cả các tác nhân con có sẵn (tích hợp, người dùng, và dự án)
-- Tạo các tác nhân con mới với thiết lập có hướng dẫn
-- Chỉnh sửa các tác nhân con tùy chỉnh hiện có và truy cập công cụ
-- Xóa các tác nhân con tùy chỉnh
-- Xem các tác nhân con nào đang hoạt động khi có bản sao trùng lặp
+Claude sẽ viết file `.claude/agents/<name>.md` cho bạn, chọn frontmatter phù hợp (công cụ, model, mô tả). Sau đó bạn có thể chỉnh sửa file thủ công hoặc yêu cầu Claude điều chỉnh.
 
 ### Quản Lý File Trực Tiếp
 
@@ -480,7 +477,7 @@ description: Performs long-running analysis tasks in the background
 | Phím Tắt | Hành Động |
 |----------|--------|
 | `Ctrl+B` | Chạy nền một tác vụ tác nhân con đang chạy |
-| `Ctrl+F` | Giết tất cả các tác nhân nền (nhấn hai lần để xác nhận) |
+| `Ctrl+X` `Ctrl+K` | Dừng tất cả các tác nhân con nền đang chạy (nhấn hai lần trong vòng 3 giây để xác nhận; tổ hợp này thay thế `Ctrl+F`) |
 
 ### Vô Hiệu hóa Tác Vụ Nền
 
@@ -1016,16 +1013,14 @@ Thư mục này chứa các ví dụ tác nhân con đã sẵn sàng sử dụng
 
 ### Phương Pháp 1: Sử Dụng Lệnh /agents (Khuyến Nghị)
 
-```bash
-/agents
+> **Lưu ý**: Trình hướng dẫn tương tác `/agents` đã bị gỡ bỏ trong v2.1.198, và kể từ v2.1.281, `/agents` không còn xuất hiện trong menu `/` hoặc `/help`. Hãy yêu cầu Claude tạo hoặc quản lý tác nhân con (ví dụ: "tạo một tác nhân con để review bảo mật"), hoặc thêm trực tiếp một file `.claude/agents/<name>.md`.
+
+```text
+Tạo một tác nhân con cấp dự án để chạy test và sửa các lỗi thất bại.
+Cấp cho nó quyền truy cập Bash, Read, Edit và Grep.
 ```
 
-Sau đó:
-1. Chọn 'Create New Agent'
-2. Chọn cấp dự án hoặc cấp người dùng
-3. Mô tả tác nhân con của bạn chi tiết
-4. Chọn các công cụ để cấp quyền truy cập (hoặc bỏ trống để kế thừa tất cả)
-5. Lưu và sử dụng
+Claude sẽ viết `.claude/agents/<name>.md` với frontmatter phù hợp. Hãy xem lại file được tạo, rồi sử dụng.
 
 ### Phương Pháp 2: Sao Chép Vào Dự Án
 
@@ -1061,13 +1056,13 @@ cp /path/to/04-subagents/debugger.md ~/.claude/agents/
 
 ### Xác Minh
 
-Sau khi cài đặt, xác minh các tác nhân được nhận diện:
+Sau khi cài đặt, xác minh các tác nhân được nhận diện bằng cách liệt kê thư mục:
 
 ```bash
-/agents
+ls .claude/agents/
 ```
 
-Bạn sẽ thấy các tác nhân đã cài của bạn được liệt kê cùng với các tác nhân được tích hợp sẵn.
+Bạn cũng có thể hỏi Claude những tác nhân con nào có sẵn trong phiên hiện tại, và Claude sẽ báo cáo các tác nhân tích hợp sẵn và tùy chỉnh mà nó có thể ủy quyền.
 
 ---
 
@@ -1138,8 +1133,10 @@ graph TD
 
 ---
 
-**Cập Nhật Lần Cuối**: Ngày 25 tháng 8 năm 2026
-**Phiên Bản Claude Code**: 2.1.245
+**Cập Nhật Lần Cuối**: Ngày 26 tháng 9 năm 2026
+**Phiên Bản Claude Code**: 2.1.283
 **Nguồn**:
 - https://code.claude.com/docs/en/sub-agents
+- https://code.claude.com/docs/en/commands
+- https://code.claude.com/docs/en/interactive-mode
 **Các Mô Hình Tương Thích**: Claude Sonnet 4.6, Claude Opus 4.6, Claude Haiku 4.5
